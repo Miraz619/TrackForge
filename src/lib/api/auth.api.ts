@@ -22,6 +22,11 @@ interface BackendLoginResult {
   refreshToken: string;
 }
 
+interface BackendRefreshResult {
+  response: ApiResponse<LoginResponse>;
+  refreshToken: string | null;
+}
+
 export async function registerUser(
   input: RegisterInput,
 ) {
@@ -41,14 +46,11 @@ export async function loginUser(
     `${env.BACKEND_API_URL}/api/auth/login`,
     {
       method: "POST",
-
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-
       body: JSON.stringify(input),
-
       cache: "no-store",
     },
   );
@@ -71,6 +73,7 @@ export async function loginUser(
 
   if (
     !data.data?.accessToken ||
+    !data.data.user ||
     !refreshToken
   ) {
     throw new ApiError(
@@ -82,6 +85,57 @@ export async function loginUser(
   return {
     response: data,
     refreshToken,
+  };
+}
+
+export async function refreshSession(
+  refreshToken: string,
+): Promise<BackendRefreshResult> {
+  const response = await fetch(
+    `${env.BACKEND_API_URL}/api/auth/refresh-token`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Cookie: `refreshToken=${encodeURIComponent(
+          refreshToken,
+        )}`,
+      },
+      cache: "no-store",
+    },
+  );
+
+  const data =
+    (await response.json()) as ApiResponse<LoginResponse>;
+
+  if (!response.ok) {
+    throw new ApiError(
+      data.message ||
+        "Unable to refresh session",
+      response.status,
+      data.errors,
+    );
+  }
+
+  if (
+    !data.data?.accessToken ||
+    !data.data.user
+  ) {
+    throw new ApiError(
+      "Refresh response is incomplete",
+      500,
+    );
+  }
+
+  return {
+    response: data,
+
+    refreshToken:
+      extractRefreshToken(
+        response.headers.get(
+          "set-cookie",
+        ),
+      ),
   };
 }
 
