@@ -148,3 +148,20 @@ export async function createIssue(
     },
   );
 }
+
+export async function updateIssue(
+  id: number,
+  input: IssueInput,
+  accessToken: string,
+) {
+  return apiFetch<
+    ApiResponse<Issue>
+  >(
+    `/api/issues/${id}`,
+    {
+      method: "PATCH",
+      accessToken,
+      body: input,
+    },
+  );
+}
