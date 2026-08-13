@@ -7,3 +7,13 @@ export interface AuthActionState {
     password?: string[];
   };
 }
+
+export interface IssueActionState {
+  error?: string;
+
+  fieldErrors?: {
+    title?: string[];
+    description?: string[];
+    type?: string[];
+  };
+}

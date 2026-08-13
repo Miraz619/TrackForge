@@ -10,6 +10,10 @@ import type {
   PaginatedApiResponse,
 } from "@/types";
 
+import type {
+  IssueInput,
+} from "@/schemas/issue.schema";
+
 function buildIssueQuery(
   filters: IssueFilters = {},
 ) {
@@ -105,10 +109,13 @@ export async function getIssueStats(
 ) {
   return apiFetch<
     ApiResponse<IssueStats>
-  >("/api/issues/stats", {
-    method: "GET",
-    accessToken,
-  });
+  >(
+    "/api/issues/stats",
+    {
+      method: "GET",
+      accessToken,
+    },
+  );
 }
 
 export async function getIssue(
@@ -117,8 +124,27 @@ export async function getIssue(
 ) {
   return apiFetch<
     ApiResponse<Issue>
-  >(`/api/issues/${id}`, {
-    method: "GET",
-    accessToken,
-  });
+  >(
+    `/api/issues/${id}`,
+    {
+      method: "GET",
+      accessToken,
+    },
+  );
+}
+
+export async function createIssue(
+  input: IssueInput,
+  accessToken: string,
+) {
+  return apiFetch<
+    ApiResponse<Issue>
+  >(
+    "/api/issues",
+    {
+      method: "POST",
+      accessToken,
+      body: input,
+    },
+  );
 }
