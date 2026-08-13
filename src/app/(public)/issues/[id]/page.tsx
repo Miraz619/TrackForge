@@ -13,6 +13,7 @@ import {
   CalendarDays,
   Clock3,
   Hash,
+  LayoutDashboard,
   Pencil,
   UserRound,
 } from "lucide-react";
@@ -68,9 +69,7 @@ function formatDate(
       hour: "numeric",
       minute: "2-digit",
     },
-  ).format(
-    new Date(value),
-  );
+  ).format(new Date(value));
 }
 
 export default async function IssueDetailsPage({
@@ -103,8 +102,7 @@ export default async function IssueDetailsPage({
         session?.accessToken,
       );
 
-    issue =
-      response.data;
+    issue = response.data;
   } catch (error) {
     if (
       error instanceof
@@ -128,54 +126,68 @@ export default async function IssueDetailsPage({
     issue.status === "open";
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="bg-muted/20">
       <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
-        {/* Navigation */}
         <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
           <Link
-            href={
-              session
-                ? ROUTES.myIssues
-                : ROUTES.login
-            }
-            className={buttonVariants({
-              variant: "ghost",
-              size: "sm",
-            })}
+            href={ROUTES.issues}
+            className={buttonVariants(
+              {
+                variant: "ghost",
+                size: "sm",
+              },
+            )}
           >
             <ArrowLeft />
-            {session
-              ? "Back to My Issues"
-              : "Sign in"}
+            All Issues
           </Link>
 
-          {canEdit && (
-            <Link
-              href={
-                ROUTE_BUILDERS.editMyIssue(
-                  issue.id,
-                )
-              }
-              className={buttonVariants({
-                variant:
-                  "outline",
-                size: "sm",
-              })}
-            >
-              <Pencil />
-              Edit Issue
-            </Link>
-          )}
+          <div className="flex gap-2">
+            {session && (
+              <Link
+                href={
+                  ROUTES.dashboard
+                }
+                className={buttonVariants(
+                  {
+                    variant:
+                      "outline",
+                    size: "sm",
+                  },
+                )}
+              >
+                <LayoutDashboard />
+                Dashboard
+              </Link>
+            )}
+
+            {canEdit && (
+              <Link
+                href={
+                  ROUTE_BUILDERS.editMyIssue(
+                    issue.id,
+                  )
+                }
+                className={buttonVariants(
+                  {
+                    variant:
+                      "default",
+                    size: "sm",
+                  },
+                )}
+              >
+                <Pencil />
+                Edit Issue
+              </Link>
+            )}
+          </div>
         </div>
 
-        {/* Main content */}
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
           <article className="rounded-xl border bg-card p-5 shadow-sm sm:p-8">
             <div className="flex flex-wrap items-center gap-2">
               <IssueTypeBadge
-                type={
-                  issue.type
-                }
+                type={issue.type}
               />
 
               <StatusBadge
@@ -202,14 +214,11 @@ export default async function IssueDetailsPage({
               </h2>
 
               <div className="mt-3 whitespace-pre-wrap break-words text-sm leading-7 text-muted-foreground sm:text-base">
-                {
-                  issue.description
-                }
+                {issue.description}
               </div>
             </div>
           </article>
 
-          {/* Metadata */}
           <aside className="space-y-4">
             <div className="rounded-xl border bg-card p-5">
               <h2 className="text-sm font-semibold">
@@ -266,7 +275,7 @@ export default async function IssueDetailsPage({
                 </p>
 
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  This issue is
+                  This report is
                   still open, so
                   you can update
                   its title,

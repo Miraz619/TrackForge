@@ -21,31 +21,19 @@ function buildIssueQuery(
   const params = new URLSearchParams();
 
   if (filters.search) {
-    params.set(
-      "search",
-      filters.search,
-    );
+    params.set("search", filters.search);
   }
 
   if (filters.type) {
-    params.set(
-      "type",
-      filters.type,
-    );
+    params.set("type", filters.type);
   }
 
   if (filters.status) {
-    params.set(
-      "status",
-      filters.status,
-    );
+    params.set("status", filters.status);
   }
 
   if (filters.sort) {
-    params.set(
-      "sort",
-      filters.sort,
-    );
+    params.set("sort", filters.sort);
   }
 
   if (filters.page) {
@@ -64,13 +52,11 @@ function buildIssueQuery(
 
   const query = params.toString();
 
-  return query
-    ? `?${query}`
-    : "";
+  return query ? `?${query}` : "";
 }
 
 export async function getIssues(
-  accessToken: string,
+  accessToken?: string,
   filters: IssueFilters = {},
 ) {
   return apiFetch<
