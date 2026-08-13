@@ -17,3 +17,8 @@ export interface IssueActionState {
     type?: string[];
   };
 }
+
+export interface MaintainerActionState {
+  error?: string;
+  success?: string;
+}

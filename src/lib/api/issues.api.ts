@@ -12,13 +12,13 @@ import type {
 
 import type {
   IssueInput,
+  MaintainerIssueUpdateInput,
 } from "@/schemas/issue.schema";
 
 function buildIssueQuery(
   filters: IssueFilters = {},
 ) {
-  const params =
-    new URLSearchParams();
+  const params = new URLSearchParams();
 
   if (filters.search) {
     params.set(
@@ -62,8 +62,7 @@ function buildIssueQuery(
     );
   }
 
-  const query =
-    params.toString();
+  const query = params.toString();
 
   return query
     ? `?${query}`
@@ -151,7 +150,7 @@ export async function createIssue(
 
 export async function updateIssue(
   id: number,
-  input: IssueInput,
+  input: MaintainerIssueUpdateInput,
   accessToken: string,
 ) {
   return apiFetch<
@@ -162,6 +161,21 @@ export async function updateIssue(
       method: "PATCH",
       accessToken,
       body: input,
+    },
+  );
+}
+
+export async function deleteIssue(
+  id: number,
+  accessToken: string,
+) {
+  return apiFetch<
+    ApiResponse<null>
+  >(
+    `/api/issues/${id}`,
+    {
+      method: "DELETE",
+      accessToken,
     },
   );
 }

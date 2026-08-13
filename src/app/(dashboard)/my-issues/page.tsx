@@ -324,17 +324,12 @@ export default async function MyIssuesPage({
       )}
 
       {/* Pagination */}
-      <IssuePagination
-        currentPage={
-          meta.page
-        }
-        totalPages={
-          meta.totalPages
-        }
-        filters={
-          filters
-        }
-      />
+    <IssuePagination
+  currentPage={meta.page}
+  totalPages={meta.totalPages}
+  filters={filters}
+  basePath={ROUTES.myIssues}
+/>
     </div>
   );
 }

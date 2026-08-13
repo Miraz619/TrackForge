@@ -9,8 +9,9 @@ import {
   buttonVariants,
 } from "@/components/ui/button";
 
-import { cn } from "@/lib/utils";
-import { ROUTES } from "@/lib/constants/routes";
+import {
+  cn,
+} from "@/lib/utils";
 
 import type {
   IssueFilters,
@@ -20,9 +21,11 @@ interface IssuePaginationProps {
   currentPage: number;
   totalPages: number;
   filters: IssueFilters;
+  basePath: string;
 }
 
 function createPageHref(
+  basePath: string,
   page: number,
   filters: IssueFilters,
 ) {
@@ -71,14 +74,15 @@ function createPageHref(
     params.toString();
 
   return query
-    ? `${ROUTES.myIssues}?${query}`
-    : ROUTES.myIssues;
+    ? `${basePath}?${query}`
+    : basePath;
 }
 
 export function IssuePagination({
   currentPage,
   totalPages,
   filters,
+  basePath,
 }: IssuePaginationProps) {
   if (totalPages <= 1) {
     return null;
@@ -108,13 +112,17 @@ export function IssuePagination({
         {hasPrevious ? (
           <Link
             href={createPageHref(
+              basePath,
               currentPage - 1,
               filters,
             )}
-            className={buttonVariants({
-              variant: "outline",
-              size: "sm",
-            })}
+            className={buttonVariants(
+              {
+                variant:
+                  "outline",
+                size: "sm",
+              },
+            )}
           >
             <ChevronLeft />
             Previous
@@ -123,7 +131,8 @@ export function IssuePagination({
           <span
             className={cn(
               buttonVariants({
-                variant: "outline",
+                variant:
+                  "outline",
                 size: "sm",
               }),
               "pointer-events-none opacity-50",
@@ -137,13 +146,17 @@ export function IssuePagination({
         {hasNext ? (
           <Link
             href={createPageHref(
+              basePath,
               currentPage + 1,
               filters,
             )}
-            className={buttonVariants({
-              variant: "outline",
-              size: "sm",
-            })}
+            className={buttonVariants(
+              {
+                variant:
+                  "outline",
+                size: "sm",
+              },
+            )}
           >
             Next
             <ChevronRight />
@@ -152,7 +165,8 @@ export function IssuePagination({
           <span
             className={cn(
               buttonVariants({
-                variant: "outline",
+                variant:
+                  "outline",
                 size: "sm",
               }),
               "pointer-events-none opacity-50",
