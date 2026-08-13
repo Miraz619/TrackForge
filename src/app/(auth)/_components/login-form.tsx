@@ -3,25 +3,53 @@
 import Link from "next/link";
 import {
   useActionState,
+  useState,
 } from "react";
 
 import {
   AlertCircle,
   Loader2,
   LogIn,
+  ShieldCheck,
+  UserRound,
 } from "lucide-react";
 
-import { loginAction } from "../_actions/login.action";
+import {
+  loginAction,
+} from "../_actions/login.action";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import {
+  Button,
+} from "@/components/ui/button";
 
-import { ROUTES } from "@/lib/constants/routes";
+import {
+  Input,
+} from "@/components/ui/input";
 
-import type { AuthActionState } from "@/types";
+import {
+  ROUTES,
+} from "@/lib/constants/routes";
 
-const initialState: AuthActionState =
-  {};
+import type {
+  AuthActionState,
+} from "@/types";
+
+const initialState: AuthActionState = {};
+
+const DEMO_ACCOUNTS = {
+  contributor: {
+    email: "sumon43@gmail.com",
+    password: "skafda231#",
+  },
+
+  maintainer: {
+    email: "miraz456@gmail.com",
+    password: "adfafda345@",
+  },
+} as const;
+
+type DemoRole =
+  keyof typeof DEMO_ACCOUNTS;
 
 export function LoginForm() {
   const [
@@ -32,6 +60,34 @@ export function LoginForm() {
     loginAction,
     initialState,
   );
+
+  const [
+    email,
+    setEmail,
+  ] = useState("");
+
+  const [
+    password,
+    setPassword,
+  ] = useState("");
+
+  const [
+    selectedDemo,
+    setSelectedDemo,
+  ] = useState<DemoRole | null>(
+    null,
+  );
+
+  function fillDemoCredentials(
+    role: DemoRole,
+  ) {
+    const account =
+      DEMO_ACCOUNTS[role];
+
+    setEmail(account.email);
+    setPassword(account.password);
+    setSelectedDemo(role);
+  }
 
   return (
     <form
@@ -49,6 +105,7 @@ export function LoginForm() {
         </div>
       )}
 
+      {/* Email */}
       <div className="space-y-2">
         <label
           htmlFor="email"
@@ -63,12 +120,17 @@ export function LoginForm() {
           type="email"
           autoComplete="email"
           placeholder="you@example.com"
-          aria-invalid={
-            Boolean(
-              state.fieldErrors
-                ?.email,
-            )
-          }
+          value={email}
+          onChange={(event) => {
+            setEmail(
+              event.target.value,
+            );
+
+            setSelectedDemo(null);
+          }}
+          aria-invalid={Boolean(
+            state.fieldErrors?.email,
+          )}
           required
         />
 
@@ -83,15 +145,14 @@ export function LoginForm() {
         )}
       </div>
 
+      {/* Password */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between gap-4">
-          <label
-            htmlFor="password"
-            className="text-sm font-medium"
-          >
-            Password
-          </label>
-        </div>
+        <label
+          htmlFor="password"
+          className="text-sm font-medium"
+        >
+          Password
+        </label>
 
         <Input
           id="password"
@@ -99,12 +160,18 @@ export function LoginForm() {
           type="password"
           autoComplete="current-password"
           placeholder="Enter your password"
-          aria-invalid={
-            Boolean(
-              state.fieldErrors
-                ?.password,
-            )
-          }
+          value={password}
+          onChange={(event) => {
+            setPassword(
+              event.target.value,
+            );
+
+            setSelectedDemo(null);
+          }}
+          aria-invalid={Boolean(
+            state.fieldErrors
+              ?.password,
+          )}
           required
         />
 
@@ -119,6 +186,7 @@ export function LoginForm() {
         )}
       </div>
 
+      {/* Sign in */}
       <Button
         type="submit"
         className="w-full"
@@ -137,12 +205,63 @@ export function LoginForm() {
         )}
       </Button>
 
+      {/* Demo role shortcuts */}
+      <div className="space-y-3 pt-1">
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-border" />
+
+          <span className="text-xs text-muted-foreground">
+            Demo login
+          </span>
+
+          <div className="h-px flex-1 bg-border" />
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() =>
+              fillDemoCredentials(
+                "contributor",
+              )
+            }
+            className={`flex items-center justify-center gap-2 rounded-lg border px-3 py-2.5 text-sm font-medium transition-all ${
+              selectedDemo ===
+              "contributor"
+                ? "border-brand bg-brand-soft text-brand"
+                : "bg-background text-muted-foreground hover:border-brand/30 hover:bg-brand-soft/40 hover:text-foreground"
+            }`}
+          >
+            <UserRound className="size-4" />
+            Contributor
+          </button>
+
+          <button
+            type="button"
+            onClick={() =>
+              fillDemoCredentials(
+                "maintainer",
+              )
+            }
+            className={`flex items-center justify-center gap-2 rounded-lg border px-3 py-2.5 text-sm font-medium transition-all ${
+              selectedDemo ===
+              "maintainer"
+                ? "border-brand bg-brand-soft text-brand"
+                : "bg-background text-muted-foreground hover:border-brand/30 hover:bg-brand-soft/40 hover:text-foreground"
+            }`}
+          >
+            <ShieldCheck className="size-4" />
+            Maintainer
+          </button>
+        </div>
+      </div>
+
       <p className="text-center text-sm text-muted-foreground">
         Don&apos;t have an
         account?{" "}
         <Link
           href={ROUTES.register}
-          className="font-medium text-foreground underline-offset-4 hover:underline"
+          className="font-medium text-foreground underline-offset-4 transition-colors hover:text-brand hover:underline"
         >
           Create account
         </Link>
