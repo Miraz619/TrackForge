@@ -1,30 +1,48 @@
 "use client";
 
 import {
+  useEffect,
+  useState,
+} from "react";
+
+import {
   Menu,
   ShieldCheck,
   UserRound,
   X,
 } from "lucide-react";
 
-import { useEffect, useState } from "react";
+import {
+  Button,
+} from "@/components/ui/button";
 
-import { Button } from "@/components/ui/button";
+import {
+  ThemeToggle,
+} from "@/components/shared/theme-toggle";
 
-import type { User } from "@/types";
+import type {
+  User,
+} from "@/types";
 
-import { AppSidebar } from "./app-sidebar";
+import {
+  AppSidebar,
+} from "./app-sidebar";
 
 interface DashboardHeaderProps {
   user: User;
 }
 
-function getInitials(name: string) {
+function getInitials(
+  name: string,
+) {
   return name
     .trim()
     .split(/\s+/)
     .slice(0, 2)
-    .map((part) => part[0])
+    .map(
+      (part) =>
+        part[0],
+    )
     .join("")
     .toUpperCase();
 }
@@ -32,8 +50,10 @@ function getInitials(name: string) {
 export function DashboardHeader({
   user,
 }: DashboardHeaderProps) {
-  const [mobileOpen, setMobileOpen] =
-    useState(false);
+  const [
+    mobileOpen,
+    setMobileOpen,
+  ] = useState(false);
 
   useEffect(() => {
     if (!mobileOpen) {
@@ -43,8 +63,13 @@ export function DashboardHeader({
     const handleKeyDown = (
       event: KeyboardEvent,
     ) => {
-      if (event.key === "Escape") {
-        setMobileOpen(false);
+      if (
+        event.key ===
+        "Escape"
+      ) {
+        setMobileOpen(
+          false,
+        );
       }
     };
 
@@ -81,7 +106,9 @@ export function DashboardHeader({
               mobileOpen
             }
             onClick={() =>
-              setMobileOpen(true)
+              setMobileOpen(
+                true,
+              )
             }
           >
             <Menu className="size-5" />
@@ -98,7 +125,9 @@ export function DashboardHeader({
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <ThemeToggle />
+
           <div className="hidden text-right sm:block">
             <p className="max-w-48 truncate text-sm font-medium">
               {user.name}
@@ -116,8 +145,10 @@ export function DashboardHeader({
             </div>
           </div>
 
-          <div className="flex size-9 items-center justify-center rounded-full bg-foreground text-xs font-semibold text-background">
-            {getInitials(user.name)}
+          <div className="flex size-9 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">
+            {getInitials(
+              user.name,
+            )}
           </div>
         </div>
       </header>
@@ -129,7 +160,9 @@ export function DashboardHeader({
             aria-label="Close navigation"
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() =>
-              setMobileOpen(false)
+              setMobileOpen(
+                false,
+              )
             }
           />
 
@@ -141,7 +174,9 @@ export function DashboardHeader({
               className="absolute right-3 top-3 z-10"
               aria-label="Close navigation"
               onClick={() =>
-                setMobileOpen(false)
+                setMobileOpen(
+                  false,
+                )
               }
             >
               <X className="size-5" />
@@ -150,7 +185,9 @@ export function DashboardHeader({
             <AppSidebar
               user={user}
               onNavigate={() =>
-                setMobileOpen(false)
+                setMobileOpen(
+                  false,
+                )
               }
             />
           </aside>

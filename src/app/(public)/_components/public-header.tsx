@@ -5,7 +5,13 @@ import {
   Menu,
 } from "lucide-react";
 
-import { Logo } from "@/components/shared/logo";
+import {
+  Logo,
+} from "@/components/shared/logo";
+
+import {
+  ThemeToggle,
+} from "@/components/shared/theme-toggle";
 
 import {
   buttonVariants,
@@ -31,7 +37,7 @@ export function PublicHeader({
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo />
 
-        {/* Desktop Navigation */}
+        {/* Desktop navigation */}
         <nav className="hidden items-center gap-1 md:flex">
           <Link
             href={ROUTES.home}
@@ -48,7 +54,9 @@ export function PublicHeader({
           </Link>
 
           <Link
-            href={ROUTES.howItWorks}
+            href={
+              ROUTES.howItWorks
+            }
             className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             How It Works
@@ -62,116 +70,116 @@ export function PublicHeader({
           </Link>
         </nav>
 
-        {/* Desktop Actions */}
-        <div className="hidden items-center gap-2 md:flex">
-          {user ? (
-            <Link
-              href={ROUTES.dashboard}
-              className={buttonVariants({
-                variant: "default",
-                size: "sm",
-              })}
-            >
-              <LayoutDashboard />
-              Dashboard
-            </Link>
-          ) : (
-            <>
+        {/* Actions */}
+        <div className="flex items-center gap-1.5">
+          <ThemeToggle />
+
+          <div className="hidden items-center gap-2 md:flex">
+            {user ? (
               <Link
-                href={ROUTES.login}
-                className={buttonVariants({
-                  variant: "ghost",
-                  size: "sm",
-                })}
+                href={
+                  ROUTES.dashboard
+                }
+                className={buttonVariants(
+                  {
+                    variant:
+                      "default",
+                    size: "sm",
+                  },
+                )}
               >
-                Sign in
+                <LayoutDashboard />
+                Dashboard
               </Link>
-
-              <Link
-                href={ROUTES.register}
-                className={buttonVariants({
-                  variant: "default",
-                  size: "sm",
-                })}
-              >
-                Get Started
-              </Link>
-            </>
-          )}
-        </div>
-
-        {/* Mobile Menu */}
-        <details className="relative md:hidden">
-          <summary
-            aria-label="Open navigation"
-            className="flex size-9 cursor-pointer list-none items-center justify-center rounded-md border bg-background transition-colors hover:bg-muted [&::-webkit-details-marker]:hidden"
-          >
-            <Menu className="size-4" />
-          </summary>
-
-          <div className="absolute right-0 top-12 w-64 rounded-xl border bg-card p-2 shadow-xl">
-            <nav className="space-y-1">
-              <Link
-                href={ROUTES.home}
-                className="block rounded-md px-3 py-2.5 text-sm font-medium hover:bg-muted"
-              >
-                Home
-              </Link>
-
-              <Link
-                href={ROUTES.issues}
-                className="block rounded-md px-3 py-2.5 text-sm font-medium hover:bg-muted"
-              >
-                Issues
-              </Link>
-
-              <Link
-                href={ROUTES.howItWorks}
-                className="block rounded-md px-3 py-2.5 text-sm font-medium hover:bg-muted"
-              >
-                How It Works
-              </Link>
-
-              <Link
-                href={ROUTES.about}
-                className="block rounded-md px-3 py-2.5 text-sm font-medium hover:bg-muted"
-              >
-                About
-              </Link>
-            </nav>
-
-            <div className="mt-2 border-t pt-2">
-              {user ? (
+            ) : (
+              <>
                 <Link
-                  href={ROUTES.dashboard}
-                  className={`${buttonVariants(
+                  href={
+                    ROUTES.login
+                  }
+                  className={buttonVariants(
+                    {
+                      variant:
+                        "ghost",
+                      size: "sm",
+                    },
+                  )}
+                >
+                  Sign in
+                </Link>
+
+                <Link
+                  href={
+                    ROUTES.register
+                  }
+                  className={buttonVariants(
                     {
                       variant:
                         "default",
                       size: "sm",
                     },
-                  )} w-full`}
+                  )}
                 >
-                  <LayoutDashboard />
-                  Dashboard
+                  Get Started
                 </Link>
-              ) : (
-                <div className="grid gap-2">
-                  <Link
-                    href={ROUTES.login}
-                    className={`${buttonVariants(
-                      {
-                        variant:
-                          "outline",
-                        size: "sm",
-                      },
-                    )} w-full`}
-                  >
-                    Sign in
-                  </Link>
+              </>
+            )}
+          </div>
 
+          {/* Mobile menu */}
+          <details className="relative md:hidden">
+            <summary
+              aria-label="Open navigation"
+              className="flex size-9 cursor-pointer list-none items-center justify-center rounded-md border bg-background transition-colors hover:bg-muted [&::-webkit-details-marker]:hidden"
+            >
+              <Menu className="size-4" />
+            </summary>
+
+            <div className="absolute right-0 top-12 w-64 rounded-xl border bg-card p-2 shadow-xl">
+              <nav className="space-y-1">
+                <Link
+                  href={
+                    ROUTES.home
+                  }
+                  className="block rounded-md px-3 py-2.5 text-sm font-medium hover:bg-muted"
+                >
+                  Home
+                </Link>
+
+                <Link
+                  href={
+                    ROUTES.issues
+                  }
+                  className="block rounded-md px-3 py-2.5 text-sm font-medium hover:bg-muted"
+                >
+                  Issues
+                </Link>
+
+                <Link
+                  href={
+                    ROUTES.howItWorks
+                  }
+                  className="block rounded-md px-3 py-2.5 text-sm font-medium hover:bg-muted"
+                >
+                  How It Works
+                </Link>
+
+                <Link
+                  href={
+                    ROUTES.about
+                  }
+                  className="block rounded-md px-3 py-2.5 text-sm font-medium hover:bg-muted"
+                >
+                  About
+                </Link>
+              </nav>
+
+              <div className="mt-2 border-t pt-2">
+                {user ? (
                   <Link
-                    href={ROUTES.register}
+                    href={
+                      ROUTES.dashboard
+                    }
                     className={`${buttonVariants(
                       {
                         variant:
@@ -180,13 +188,46 @@ export function PublicHeader({
                       },
                     )} w-full`}
                   >
-                    Get Started
+                    <LayoutDashboard />
+                    Dashboard
                   </Link>
-                </div>
-              )}
+                ) : (
+                  <div className="grid gap-2">
+                    <Link
+                      href={
+                        ROUTES.login
+                      }
+                      className={`${buttonVariants(
+                        {
+                          variant:
+                            "outline",
+                          size: "sm",
+                        },
+                      )} w-full`}
+                    >
+                      Sign in
+                    </Link>
+
+                    <Link
+                      href={
+                        ROUTES.register
+                      }
+                      className={`${buttonVariants(
+                        {
+                          variant:
+                            "default",
+                          size: "sm",
+                        },
+                      )} w-full`}
+                    >
+                      Get Started
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        </details>
+          </details>
+        </div>
       </div>
     </header>
   );

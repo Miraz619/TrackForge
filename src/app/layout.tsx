@@ -1,28 +1,43 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type {
+  Metadata,
+} from "next";
+
+import {
+  Geist,
+  Geist_Mono,
+} from "next/font/google";
+
+import {
+  ThemeProvider,
+} from "@/components/providers/theme-provider";
 
 import "./globals.css";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
+  variable:
+    "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistMono =
+  Geist_Mono({
+    variable:
+      "--font-geist-mono",
+    subsets: ["latin"],
+  });
 
 export const metadata: Metadata = {
   title: {
     default: "TrackForge",
-    template: "%s | TrackForge",
+    template:
+      "%s | TrackForge",
   },
 
   description:
     "TrackForge is a developer issue and feature request management platform for reporting, prioritizing, and resolving software issues.",
 
-  applicationName: "TrackForge",
+  applicationName:
+    "TrackForge",
 
   keywords: [
     "TrackForge",
@@ -43,20 +58,28 @@ export const metadata: Metadata = {
   creator: "TrackForge",
 
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+    process.env
+      .NEXT_PUBLIC_APP_URL ||
+      "http://localhost:3000",
   ),
 
   openGraph: {
     title: "TrackForge",
+
     description:
       "Developer issue and feature request management platform.",
+
     type: "website",
+
     siteName: "TrackForge",
   },
 
   twitter: {
-    card: "summary_large_image",
+    card:
+      "summary_large_image",
+
     title: "TrackForge",
+
     description:
       "Developer issue and feature request management platform.",
   },
@@ -73,11 +96,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      suppressHydrationWarning
+    >
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          storageKey="trackforge-theme"
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
