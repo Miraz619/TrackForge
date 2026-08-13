@@ -5,40 +5,88 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Base */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Typography */
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
+
+  /* Core shadcn colors */
   --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* TrackForge Brand */
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-foreground: var(--brand-foreground);
+
+  /* Issue Status */
+  --color-status-open: var(--status-open);
+  --color-status-open-soft: var(--status-open-soft);
+
+  --color-status-progress: var(--status-progress);
+  --color-status-progress-soft: var(--status-progress-soft);
+
+  --color-status-resolved: var(--status-resolved);
+  --color-status-resolved-soft: var(--status-resolved-soft);
+
+  /* Issue Types */
+  --color-issue-bug: var(--issue-bug);
+  --color-issue-bug-soft: var(--issue-bug-soft);
+
+  --color-issue-feature: var(--issue-feature);
+  --color-issue-feature-soft: var(--issue-feature-soft);
+
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(
+    --sidebar-primary-foreground
+  );
+
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(
+    --sidebar-accent-foreground
+  );
+
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Radius */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,83 +96,247 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* =========================================================
+   LIGHT THEME
+   ========================================================= */
+
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  /*
+   * Core
+   *
+   * TrackForge uses a slightly warm-neutral canvas rather
+   * than pure white everywhere. Cards remain white so
+   * dashboards retain visual depth without heavy shadows.
+   */
+  --background: #fafafb;
+  --foreground: #18181b;
+
+  --card: #ffffff;
+  --card-foreground: #18181b;
+
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+
+  /*
+   * Brand
+   *
+   * Indigo gives TrackForge a developer/SaaS identity
+   * without making the product look overly colorful.
+   */
+  --brand: #4f46e5;
+  --brand-hover: #4338ca;
+  --brand-soft: #eef2ff;
+  --brand-foreground: #ffffff;
+
+  /*
+   * shadcn Primary follows TrackForge brand.
+   */
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+
+  /*
+   * Supporting neutrals
+   */
+  --secondary: #f4f4f5;
+  --secondary-foreground: #27272a;
+
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+
+  --accent: #eef2ff;
+  --accent-foreground: #4338ca;
+
+  /*
+   * Destructive
+   */
+  --destructive: #dc2626;
+
+  /*
+   * Form / border system
+   */
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #6366f1;
+
+  /*
+   * Issue Status
+   *
+   * Open        → Amber
+   * In Progress → Blue
+   * Resolved    → Green
+   */
+  --status-open: #d97706;
+  --status-open-soft: #fffbeb;
+
+  --status-progress: #2563eb;
+  --status-progress-soft: #eff6ff;
+
+  --status-resolved: #16a34a;
+  --status-resolved-soft: #f0fdf4;
+
+  /*
+   * Issue Type
+   *
+   * Bug             → Red
+   * Feature Request → Violet
+   */
+  --issue-bug: #dc2626;
+  --issue-bug-soft: #fef2f2;
+
+  --issue-feature: #7c3aed;
+  --issue-feature-soft: #f5f3ff;
+
+  /*
+   * Dashboard Charts
+   */
+  --chart-1: #4f46e5;
+  --chart-2: #2563eb;
+  --chart-3: #16a34a;
+  --chart-4: #d97706;
+  --chart-5: #7c3aed;
+
+  /*
+   * Radius
+   */
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /*
+   * Sidebar
+   */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #18181b;
+
+  --sidebar-primary: #4f46e5;
+  --sidebar-primary-foreground: #ffffff;
+
+  --sidebar-accent: #eef2ff;
+  --sidebar-accent-foreground: #4338ca;
+
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: #6366f1;
 }
 
+/* =========================================================
+   DARK THEME
+   ========================================================= */
+
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /*
+   * Deep neutral surfaces instead of pure black.
+   */
+  --background: #0b0d10;
+  --foreground: #f4f4f5;
+
+  --card: #12151a;
+  --card-foreground: #f4f4f5;
+
+  --popover: #12151a;
+  --popover-foreground: #f4f4f5;
+
+  /*
+   * Brand
+   */
+  --brand: #818cf8;
+  --brand-hover: #a5b4fc;
+  --brand-soft: #1e1b4b;
+  --brand-foreground: #ffffff;
+
+  --primary: #818cf8;
+  --primary-foreground: #111827;
+
+  /*
+   * Supporting neutrals
+   */
+  --secondary: #1c2026;
+  --secondary-foreground: #f4f4f5;
+
+  --muted: #1c2026;
+  --muted-foreground: #a1a1aa;
+
+  --accent: #1e1b4b;
+  --accent-foreground: #c7d2fe;
+
+  /*
+   * Destructive
+   */
+  --destructive: #f87171;
+
+  /*
+   * Forms / borders
+   */
+  --border: rgb(255 255 255 / 10%);
+  --input: rgb(255 255 255 / 14%);
+  --ring: #818cf8;
+
+  /*
+   * Issue Status
+   */
+  --status-open: #fbbf24;
+  --status-open-soft: #2b2111;
+
+  --status-progress: #60a5fa;
+  --status-progress-soft: #172554;
+
+  --status-resolved: #4ade80;
+  --status-resolved-soft: #052e16;
+
+  /*
+   * Issue Types
+   */
+  --issue-bug: #f87171;
+  --issue-bug-soft: #450a0a;
+
+  --issue-feature: #a78bfa;
+  --issue-feature-soft: #2e1065;
+
+  /*
+   * Dashboard Charts
+   */
+  --chart-1: #818cf8;
+  --chart-2: #60a5fa;
+  --chart-3: #4ade80;
+  --chart-4: #fbbf24;
+  --chart-5: #a78bfa;
+
+  /*
+   * Sidebar
+   */
+  --sidebar: #101318;
+  --sidebar-foreground: #f4f4f5;
+
+  --sidebar-primary: #818cf8;
+  --sidebar-primary-foreground: #111827;
+
+  --sidebar-accent: #1e1b4b;
+  --sidebar-accent-foreground: #c7d2fe;
+
+  --sidebar-border: rgb(255 255 255 / 10%);
+  --sidebar-ring: #818cf8;
 }
+
+/* =========================================================
+   BASE STYLES
+   ========================================================= */
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+
   html {
     @apply font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: color-mix(
+      in srgb,
+      var(--brand) 22%,
+      transparent
+    );
   }
 }
